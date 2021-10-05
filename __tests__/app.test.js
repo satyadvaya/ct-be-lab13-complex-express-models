@@ -3,20 +3,21 @@ const setup = require('../data/setup.js');
 const request = require('supertest');
 const app = require('../lib/app.js');
 
-describe('demo routes', () => {
+describe('species routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
 
   it('should add a new species', () => {
     const newSpecies = {
-      type: 'Lorax',
-      extinct: false,
+      speciesType: 'Lorax',
+      extinct: true,
     };
     return request(app)
-      .post('api/species')
+      .post('/api/species')
       .send(newSpecies)
       .then((res) => {
+        console.log(res.body);
         expect(res.body).toEqual({ ...newSpecies, id: '6' });
       });
   });
