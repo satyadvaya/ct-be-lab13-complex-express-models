@@ -49,6 +49,20 @@ describe('species routes', () => {
       });
   });
 
+  it('should GET all animals', () => {
+    return request(app)
+      .get('/api/animals')
+      .then((res) => {
+        expect(res.body).toEqual([
+          { id: '1', animalName: 'Tuna', speciesId: '1' },
+          { id: '2', animalName: 'Salamander', speciesId: '2' },
+          { id: '3', animalName: 'Anaconda', speciesId: '3' },
+          { id: '4', animalName: 'Ostrich', speciesId: '4' },
+          { id: '5', animalName: 'Thylacine', speciesId: '5' },
+        ]);
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
