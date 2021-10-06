@@ -67,9 +67,11 @@ describe('species routes', () => {
     return request(app)
       .get('/api/animals/1')
       .then((res) => {
-        expect(res.body).toEqual([
-          { id: '1', animalName: 'Tuna', speciesId: '1' },
-        ]);
+        expect(res.body).toEqual({
+          id: '1',
+          animalName: 'Tuna',
+          speciesId: '1',
+        });
       });
   });
 
