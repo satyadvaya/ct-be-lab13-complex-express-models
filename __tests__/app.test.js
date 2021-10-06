@@ -26,11 +26,11 @@ describe('species routes', () => {
       .get('/api/species')
       .then((res) => {
         expect(res.body).toEqual([
-          { id: expect.any(Number), speciesType: 'Fish', extinct: false },
-          { id: expect.any(Number), speciesType: 'Amphibian', extinct: false },
-          { id: expect.any(Number), speciesType: 'Reptile', extinct: false },
-          { id: expect.any(Number), speciesType: 'Bird', extinct: false },
-          { id: expect.any(Number), speciesType: 'Thylacine', extinct: true },
+          { id: '1', speciesType: 'Fish', extinct: false },
+          { id: '2', speciesType: 'Amphibian', extinct: false },
+          { id: '3', speciesType: 'Reptile', extinct: false },
+          { id: '4', speciesType: 'Bird', extinct: false },
+          { id: '5', speciesType: 'Thylacine', extinct: true },
         ]);
       });
   });
