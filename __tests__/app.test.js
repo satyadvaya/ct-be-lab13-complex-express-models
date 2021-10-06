@@ -35,6 +35,20 @@ describe('species routes', () => {
       });
   });
 
+  it('should POST a new animal', () => {
+    const newAnimal = {
+      animalName: 'DoDo',
+      speciesId: '4',
+    };
+    return request(app)
+      .post('/api/animals')
+      .send(newAnimal)
+      .then((res) => {
+        console.log('IIIII', res.body);
+        expect(res.body).toEqual({ ...newAnimal, id: '6' });
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
