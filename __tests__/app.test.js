@@ -86,6 +86,19 @@ describe('species routes', () => {
       });
   });
 
+  it('should PATCH an animal by id', () => {
+    return request(app)
+      .patch('/api/animals/1')
+      .send({ animalName: 'Sea Chicken' })
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '1',
+          animalName: 'Sea Chicken',
+          speciesId: '1',
+        });
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
