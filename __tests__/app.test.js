@@ -99,6 +99,18 @@ describe('species routes', () => {
       });
   });
 
+  it('should DELETE an animal by id', () => {
+    return request(app)
+      .delete('/api/animals/2')
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '2',
+          animalName: 'Salamander',
+          speciesId: '2',
+        });
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
