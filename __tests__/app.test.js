@@ -44,22 +44,7 @@ describe('species routes', () => {
       .post('/api/animals')
       .send(newAnimal)
       .then((res) => {
-        console.log('IIIII', res.body);
         expect(res.body).toEqual({ ...newAnimal, id: '6' });
-      });
-  });
-
-  it('should GET all animals', () => {
-    return request(app)
-      .get('/api/animals')
-      .then((res) => {
-        expect(res.body).toEqual([
-          { id: '1', animalName: 'Tuna', speciesId: '1' },
-          { id: '2', animalName: 'Salamander', speciesId: '2' },
-          { id: '3', animalName: 'Anaconda', speciesId: '3' },
-          { id: '4', animalName: 'Ostrich', speciesId: '4' },
-          { id: '5', animalName: 'Thylacine', speciesId: '5' },
-        ]);
       });
   });
 
@@ -72,6 +57,32 @@ describe('species routes', () => {
           animalName: 'Tuna',
           speciesId: '1',
         });
+      });
+  });
+
+  it('should GET all animals and include their species', () => {
+    return request(app)
+      .get('/api/animals/')
+      .then((res) => {
+        expect(res.body).toEqual([
+          { animalName: 'Tuna', speciesType: 'Fish' },
+          {
+            animalName: 'Salamander',
+            speciesType: 'Amphibian',
+          },
+          {
+            animalName: 'Anaconda',
+            speciesType: 'Reptile',
+          },
+          {
+            animalName: 'Ostrich',
+            speciesType: 'Bird',
+          },
+          {
+            animalName: 'Thylacine',
+            speciesType: 'Thylacine',
+          },
+        ]);
       });
   });
 

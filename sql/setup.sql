@@ -22,8 +22,8 @@ CREATE TABLE animals (
 );
 
 INSERT INTO animals (animal_name, species_id)
-VALUES ('Tuna', '1'),
-    ('Salamander', '2'),
-    ('Anaconda', '3'),
-    ('Ostrich', '4'),
-    ('Thylacine', '5');
+VALUES ('Tuna', 1),
+    ('Salamander', 2),
+    ('Anaconda', 3),
+    ('Ostrich', 4),
+    ('Thylacine', 5);
