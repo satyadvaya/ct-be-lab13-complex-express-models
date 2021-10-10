@@ -125,6 +125,19 @@ describe('species routes', () => {
       });
   });
 
+  it('should PATCH a species by id', () => {
+    return request(app)
+      .patch('/api/species/1')
+      .send({ extinct: true })
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '1',
+          speciesType: 'Fish',
+          extinct: true,
+        });
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
