@@ -62,7 +62,7 @@ describe('species routes', () => {
 
   it('should GET all animals and include their species', () => {
     return request(app)
-      .get('/api/animals/')
+      .get('/api/animals/species')
       .then((res) => {
         expect(res.body).toEqual([
           { animalName: 'Tuna', speciesType: 'Fish' },
@@ -108,6 +108,20 @@ describe('species routes', () => {
           animalName: 'Salamander',
           speciesId: '2',
         });
+      });
+  });
+
+  it('should COUNT animals by species', () => {
+    return request(app)
+      .get('/api/animals/count')
+      .then((res) => {
+        expect(res.body).toEqual([
+          { speciesType: 'Fish', count: '1' },
+          { speciesType: 'Amphibian', count: '1' },
+          { speciesType: 'Reptile', count: '1' },
+          { speciesType: 'Bird', count: '1' },
+          { speciesType: 'Thylacine', count: '1' },
+        ]);
       });
   });
 
