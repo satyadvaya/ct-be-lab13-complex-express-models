@@ -116,11 +116,11 @@ describe('species routes', () => {
       .get('/api/animals/count')
       .then((res) => {
         expect(res.body).toEqual([
-          { speciesType: 'Fish', count: '1' },
-          { speciesType: 'Amphibian', count: '1' },
-          { speciesType: 'Reptile', count: '1' },
-          { speciesType: 'Bird', count: '1' },
-          { speciesType: 'Thylacine', count: '1' },
+          { species_type: 'Amphibian', count: '1' },
+          { species_type: 'Bird', count: '1' },
+          { species_type: 'Fish', count: '1' },
+          { species_type: 'Reptile', count: '1' },
+          { species_type: 'Thylacine', count: '1' },
         ]);
       });
   });
