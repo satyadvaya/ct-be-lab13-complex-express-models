@@ -8,7 +8,7 @@ describe('species routes', () => {
     return setup(pool);
   });
 
-  it('should add a new species', () => {
+  it('should POST a new species', () => {
     const newSpecies = {
       speciesType: 'Lorax',
       extinct: true,
@@ -17,8 +17,137 @@ describe('species routes', () => {
       .post('/api/species')
       .send(newSpecies)
       .then((res) => {
-        console.log(res.body);
         expect(res.body).toEqual({ ...newSpecies, id: '6' });
+      });
+  });
+
+  it('should GET all species', () => {
+    return request(app)
+      .get('/api/species')
+      .then((res) => {
+        expect(res.body).toEqual([
+          { id: '1', speciesType: 'Fish', extinct: false },
+          { id: '2', speciesType: 'Amphibian', extinct: false },
+          { id: '3', speciesType: 'Reptile', extinct: false },
+          { id: '4', speciesType: 'Bird', extinct: false },
+          { id: '5', speciesType: 'Thylacine', extinct: true },
+        ]);
+      });
+  });
+
+  it('should POST a new animal', () => {
+    const newAnimal = {
+      animalName: 'DoDo',
+      speciesId: '4',
+    };
+    return request(app)
+      .post('/api/animals')
+      .send(newAnimal)
+      .then((res) => {
+        expect(res.body).toEqual({ ...newAnimal, id: '6' });
+      });
+  });
+
+  it('should GET an animal by id', () => {
+    return request(app)
+      .get('/api/animals/1')
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '1',
+          animalName: 'Tuna',
+          speciesId: '1',
+        });
+      });
+  });
+
+  it('should GET all animals and include their species', () => {
+    return request(app)
+      .get('/api/animals/species')
+      .then((res) => {
+        expect(res.body).toEqual([
+          { animalName: 'Tuna', speciesType: 'Fish' },
+          {
+            animalName: 'Salamander',
+            speciesType: 'Amphibian',
+          },
+          {
+            animalName: 'Anaconda',
+            speciesType: 'Reptile',
+          },
+          {
+            animalName: 'Ostrich',
+            speciesType: 'Bird',
+          },
+          {
+            animalName: 'Thylacine',
+            speciesType: 'Thylacine',
+          },
+        ]);
+      });
+  });
+
+  it('should PATCH an animal by id', () => {
+    return request(app)
+      .patch('/api/animals/1')
+      .send({ animalName: 'Sea Chicken' })
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '1',
+          animalName: 'Sea Chicken',
+          speciesId: '1',
+        });
+      });
+  });
+
+  it('should DELETE an animal by id', () => {
+    return request(app)
+      .delete('/api/animals/2')
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '2',
+          animalName: 'Salamander',
+          speciesId: '2',
+        });
+      });
+  });
+
+  it('should COUNT animals by species', () => {
+    return request(app)
+      .get('/api/animals/count')
+      .then((res) => {
+        expect(res.body).toEqual([
+          { species_type: 'Amphibian', count: '1' },
+          { species_type: 'Bird', count: '1' },
+          { species_type: 'Fish', count: '1' },
+          { species_type: 'Reptile', count: '1' },
+          { species_type: 'Thylacine', count: '1' },
+        ]);
+      });
+  });
+
+  it('should PATCH a species by id', () => {
+    return request(app)
+      .patch('/api/species/1')
+      .send({ extinct: true })
+      .then((res) => {
+        expect(res.body).toEqual({
+          id: '1',
+          speciesType: 'Fish',
+          extinct: true,
+        });
+      });
+  });
+
+  it('should GET all non-extinct species', () => {
+    return request(app)
+      .get('/api/species/nonextinct')
+      .then((res) => {
+        expect(res.body).toEqual([
+          { id: '1', speciesType: 'Fish', extinct: false },
+          { id: '2', speciesType: 'Amphibian', extinct: false },
+          { id: '3', speciesType: 'Reptile', extinct: false },
+          { id: '4', speciesType: 'Bird', extinct: false },
+        ]);
       });
   });
 
