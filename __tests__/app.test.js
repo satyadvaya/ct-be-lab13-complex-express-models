@@ -138,6 +138,19 @@ describe('species routes', () => {
       });
   });
 
+  it('should GET all non-extinct species', () => {
+    return request(app)
+      .get('/api/species/nonextinct')
+      .then((res) => {
+        expect(res.body).toEqual([
+          { id: '1', speciesType: 'Fish', extinct: false },
+          { id: '2', speciesType: 'Amphibian', extinct: false },
+          { id: '3', speciesType: 'Reptile', extinct: false },
+          { id: '4', speciesType: 'Bird', extinct: false },
+        ]);
+      });
+  });
+
   afterAll(() => {
     pool.end();
   });
